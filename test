@@ -1,0 +1,33 @@
+ Boot-Time Persistence (BootExecute):
+
+The Simple Part: Modifying the BootExecute registry key to run an application before logon.
+
+The Advanced Part:
+
+Delayed Execution: Introduce a significant delay to your payload's execution to avoid early detection.
+
+Pre-Logon Payload: Launch an intermediate application that sets up a more complex persistence after logon.
+
+Driver Loading: Use BootExecute to load a malicious driver before the operating system has fully started.
+
+System Recovery Prevention: Interfere with system recovery processes that happen at boot.
+
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "BootExecute" /t REG_MULTI_SZ /d "powershell.exe -enc <base64_encoded_payload>" /f
+
+
+
+Using "AutoRun" INF Files:
+
+The Simple Part: Autorun INF files were primarily used for CDs and USB drives.
+
+The Slightly Less Obvious Part:
+
+Local Drive Autorun: While AutoRun is disabled on most local drives, certain applications might still interact with INF files. You can still use it in some instances.
+
+INF File Obfuscation: Create the INF file with a hidden name and make it a system file for stealth.
+
+Action Execution: Use the open= key in the INF to trigger your payload, but also include some other legitimate action to obscure the intent.
+
+
+
